@@ -1,50 +1,25 @@
 <?php
+    require_once "db_connect.php";
 
-require_once "db_connect.php";
+    session_start();
 
-session_start();
+    $sql = "SELECT *
+        FROM posts";
 
-// adding user id to the session
+    $results = $mysqli->query($sql);
 
-if(empty($_SESSION['logged_in'])) {
-    $username = $mysqli->real_escape_string($_POST['username']);
-    $password = $mysqli->real_escape_string($_POST['pass']);
-    $password = hash('SHA512', $password);
-
-    if (empty($username) || empty($password)) {
-        echo "<div class='notice'>Please enter the required credentials! </div>";
-        include "login.php";
-        exit();
-    } else {
-        $sql = "SELECT *
-                FROM users
-                WHERE username = '$username'";
-
-        $results = $mysqli->query($sql);
-        if(!$results){
-            exit($mysqli->error);
-        }
-
-        $user_id = -1;
-        while($row = $results->fetch_array(MYSQLI_ASSOC)) {
-            if ($row['username'] == $username) {
-                $user_id = $row['user_id'];
-                break;
-            };
-        };
-
-        if ($password == $row['password']) {
-            // Logged IN
-            $_SESSION['logged_in'] = true;
-            $_SESSION['user_id'] = $user_id; // get the user id from the row
-            $_SESSION['username'] = $username;
-        } else {
-            echo "<div class='notice'>Invalid login information. </div>";
-            include "login.php";
-            exit();
-        }
+    if(!$results){
+        exit($mysqli->error);
     }
-}
+
+    $array = [];
+
+    while($row = $results->fetch_array(MYSQLI_ASSOC)) {
+       $array[] = json_encode($row);
+    };
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +29,7 @@ if(empty($_SESSION['logged_in'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/feed.css">
+    <link rel="stylesheet" href="../css/feed-unique.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,19 +42,19 @@ if(empty($_SESSION['logged_in'])) {
 <body>
 
 <div id="wrapper">
-    <!-- sidebar that shows up when the window gets wider -->
-    <a href="profile.php" class="btn btn-default" id="menu-toggle">
+
+    <a class="btn btn-default" id="menu-toggle">
         <span id="sidenav-icon" class="glyphicon glyphicon-menu-hamburger"></span>
     </a>
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-nav-li exception">
+            <li class="sidebar-nav-li">
                 <a href="profile.php" id="profile"> <!-- 'Feeds' Section -->
                     <?php echo '<img class="profile-pic" src="data:image/jpeg;base64,' . $_SESSION['image']  . '" />'; ?>
                 </a>
             </li>
-            <li class="sidebar-nav-li ">
+            <li class="sidebar-nav-li">
                 <a href="feed.php" id="feed"> <!-- 'Feeds' Section -->
                     <span class="glyphicon glyphicon-globe sidenav-icon"></span>
                 </a>
@@ -93,8 +69,8 @@ if(empty($_SESSION['logged_in'])) {
                     <span class="glyphicon glyphicon-off sidenav-icon"></span>
                 </a>
             </li>
-            <li class="sidebar-nav-li">
-                <a href="locations.php"  id="left-toggle"> <!-- 'Location' section -->
+            <li class="sidebar-brand">
+                <a href="locations.php"> <!-- 'Location' section -->
                     <span class="glyphicon glyphicon-map-marker sidenav-icon"></span>
                 </a>
             </li>
@@ -107,8 +83,25 @@ if(empty($_SESSION['logged_in'])) {
     </div> <!-- /#sidebar-wrapper -->
 
 
-    <?php include 'templates/profile_page_edit.php' ?>
-    <!-- /#page-content-wrapper -->
+    <div id="page-content-wrapper" style="margin-left: -50px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1> Popular Locations! </h1>
+                    <p class="loc-desc">
+                        Bellow is the map showing the most popular locations that people indicated in their posts. It kind of shows
+                        you where people usually spend time at or where they have been while writing their new post. Just the idea of having
+                        people from all over the world sharing their thoughts and events is amazing, so the map will give you a better understanding
+                        of where people usually hang out!
+                    </p>
+                </div>
+                <div class="col-lg-12 feeds-wrapper">
+                    <div id="map-canvas"> </div>
+                </div>
+            </div>
+         </div>
+        </div>
+    </div>
 
 </div>
 <!-- /#wrapper -->
@@ -129,5 +122,47 @@ if(empty($_SESSION['logged_in'])) {
 
 </html>
 
+
+
+
+<script>
+    var jArray= <?php echo json_encode($array ); ?>;
+
+    var newArray = new Array();
+
+    for(var i=0;i < jArray.length;i++) {
+       var object = JSON.parse(jArray[i]);
+        newArray.push(object);
+    }
+    console.log(newArray);
+
+    // Create a map object and specify the DOM element for display.
+    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+    });
+
+    var plotPoints = function(obj) {
+        console.log(obj);
+        var myLatlng = new google.maps.LatLng(parseFloat(obj.geo_lat), parseFloat(obj.geo_long));
+
+        //created the new marker with animation and custom icon
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            animation: google.maps.Animation.DROP
+        });
+
+        map.setCenter(new google.maps.LatLng(parseFloat(obj.geo_lat),  parseFloat(obj.geo_long)));
+    };
+
+    newArray.forEach(function(object) {
+        plotPoints(object);
+    });
+
+    map.setZoom(2);
+
+
+</script>
 
 

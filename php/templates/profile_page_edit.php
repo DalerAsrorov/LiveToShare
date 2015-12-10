@@ -32,7 +32,6 @@ if (!$results_states){
     exit("SQL Error: " . $mysqli->error);
 }
 
-
 ?>
 <div id="page-content-wrapper">
     <div class="container-fluid">

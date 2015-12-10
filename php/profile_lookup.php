@@ -1,51 +1,15 @@
 <?php
+    require_once "db_connect.php";
 
-require_once "db_connect.php";
+    session_start();
 
-session_start();
-
-// adding user id to the session
-
-if(empty($_SESSION['logged_in'])) {
-    $username = $mysqli->real_escape_string($_POST['username']);
-    $password = $mysqli->real_escape_string($_POST['pass']);
-    $password = hash('SHA512', $password);
-
-    if (empty($username) || empty($password)) {
-        echo "<div class='notice'>Please enter the required credentials! </div>";
-        include "login.php";
-        exit();
-    } else {
-        $sql = "SELECT *
-                FROM users
-                WHERE username = '$username'";
-
-        $results = $mysqli->query($sql);
-        if(!$results){
-            exit($mysqli->error);
-        }
-
-        $user_id = -1;
-        while($row = $results->fetch_array(MYSQLI_ASSOC)) {
-            if ($row['username'] == $username) {
-                $user_id = $row['user_id'];
-                break;
-            };
-        };
-
-        if ($password == $row['password']) {
-            // Logged IN
-            $_SESSION['logged_in'] = true;
-            $_SESSION['user_id'] = $user_id; // get the user id from the row
-            $_SESSION['username'] = $username;
-        } else {
-            echo "<div class='notice'>Invalid login information. </div>";
-            include "login.php";
-            exit();
-        }
+    $username = $_GET['username'];
+    if(empty($username)){
+        header("Location: feed.php");
     }
-}
+
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -54,6 +18,7 @@ if(empty($_SESSION['logged_in'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/feed.css">
+    <link rel="stylesheet" href="../css/feed-unique.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,19 +31,19 @@ if(empty($_SESSION['logged_in'])) {
 <body>
 
 <div id="wrapper">
-    <!-- sidebar that shows up when the window gets wider -->
-    <a href="profile.php" class="btn btn-default" id="menu-toggle">
+
+    <a class="btn btn-default" id="menu-toggle">
         <span id="sidenav-icon" class="glyphicon glyphicon-menu-hamburger"></span>
     </a>
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-nav-li exception">
+            <li class="sidebar-nav-li">
                 <a href="profile.php" id="profile"> <!-- 'Feeds' Section -->
                     <?php echo '<img class="profile-pic" src="data:image/jpeg;base64,' . $_SESSION['image']  . '" />'; ?>
                 </a>
             </li>
-            <li class="sidebar-nav-li ">
+            <li class="sidebar-brand">
                 <a href="feed.php" id="feed"> <!-- 'Feeds' Section -->
                     <span class="glyphicon glyphicon-globe sidenav-icon"></span>
                 </a>
@@ -94,7 +59,7 @@ if(empty($_SESSION['logged_in'])) {
                 </a>
             </li>
             <li class="sidebar-nav-li">
-                <a href="locations.php"  id="left-toggle"> <!-- 'Location' section -->
+                <a href="locations.php"> <!-- 'Location' section -->
                     <span class="glyphicon glyphicon-map-marker sidenav-icon"></span>
                 </a>
             </li>
@@ -107,7 +72,7 @@ if(empty($_SESSION['logged_in'])) {
     </div> <!-- /#sidebar-wrapper -->
 
 
-    <?php include 'templates/profile_page_edit.php' ?>
+    <?php include 'templates/profile_guest.php' ?>
     <!-- /#page-content-wrapper -->
 
 </div>
@@ -122,12 +87,7 @@ if(empty($_SESSION['logged_in'])) {
 <!-- Menu Toggle Script -->
 <script src="../js/jquery-scripts.js"></script>
 
-<!-- Google Maps -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1SW1tz6LZeuoylTvzAEnagTCF7xu4yH8"> </script>
 </body>
 
 
 </html>
-
-
-

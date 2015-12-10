@@ -1,0 +1,21 @@
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background-color: rgba(0,0,0,.4);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.8);
+}
+
+.photo-wrapper img {
+    float: none;
+    display: block;
+    margin: 0 auto;
+    height: 350px
+}
+
+.video-wrapper.center {
+    text-align: center;
+    margin-top: 20px;
+}

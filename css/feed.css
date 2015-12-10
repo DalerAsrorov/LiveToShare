@@ -196,22 +196,22 @@ body {
 }
 
 .photo-wrapper {
-    float: left;
-    height: 200px;
+    height: 410px;
 
 }
 
 .photo-wrapper img {
-    width: 200px;
     height: 200px;
+    width: 50%;
+    float: none;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .description {
-    width: 60%;
-    padding: 15px;
-    float: left;
     margin: 5px;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .panel-footer {
@@ -221,10 +221,9 @@ body {
 }
 
 .map-wrapper {
-    float: right;
     height: 200px;
-    width: 200px;
     border: 1px solid black;
+    margin: 5px 0;
 }
 
 .btn-info.profile-edit-button {
@@ -235,4 +234,86 @@ body {
     top: 50px;
     background: green;
     border: 1px solid green;
+}
+
+.btn-info.add-link-button {
+    width: 100%;
+    font-size: 22px;
+}
+
+.notice.signup.post {
+    top: 50px;
+    left: 120px;
+    /* float: none; */
+    /* display: block; */
+    /* margin: 0 auto; */
+    font-size: 30px;
+}
+
+.panel.panel-info.post {
+    padding: 0;
+    margin: 0;
+    height: 750px;
+    position: relative;
+}
+
+.panel-footer.post-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.panel-body.post-body {
+    overflow: scroll;
+    height: 550px;
+}
+
+.date-feed {
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.username-link {
+    font-size: 16px;
+    font-weight: 800;
+    color: indianred;
+    font-style: italic;
+    position: relative;
+    top: -8px;
+}
+
+.panel-heading.post {
+    padding: 0;
+}
+
+.h1-feed {
+    margin: 0;
+}
+
+#map-canvas {
+    height: 600px;
+    width: 100%;
+
+}
+
+.loc-desc {
+    font-size: 18px;
+}
+
+.photo-wrapper-profile {
+    margin: 0 auto;
+}
+
+.photo-wrapper-profile img {
+    height: 180px;
+    margin: 0 auto;
+    width: 210px;
+}
+
+.right-buttons {
+    font-size: 16px;
+    font-weight: 800;
+    width: 80px;
+    position: relative;
+    top: 15px;
 }

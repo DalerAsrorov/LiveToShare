@@ -66,7 +66,10 @@ if(empty($_SESSION['logged_in'])) {
 <body>
 
 <div id="wrapper">
-
+    <!-- sidebar that shows up when the window gets wider -->
+    <a class="btn btn-default" id="menu-toggle">
+        <span id="sidenav-icon" class="glyphicon glyphicon-menu-hamburger"></span>
+    </a>
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
@@ -88,6 +91,11 @@ if(empty($_SESSION['logged_in'])) {
             <li class="sidebar-nav-li"> <!-- 'Log Out' section -->
                 <a href="logout.php">
                     <span class="glyphicon glyphicon-off sidenav-icon"></span>
+                </a>
+            </li>
+            <li class="sidebar-nav-li">
+                <a href="locations.php"> <!-- 'Location' section -->
+                    <span class="glyphicon glyphicon-map-marker sidenav-icon"></span>
                 </a>
             </li>
             <li class="sidebar-nav-li">

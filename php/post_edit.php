@@ -1,50 +1,11 @@
 <?php
 
-require_once "db_connect.php";
-
 session_start();
 
-// adding user id to the session
+require_once "db_connect.php";
 
-if(empty($_SESSION['logged_in'])) {
-    $username = $mysqli->real_escape_string($_POST['username']);
-    $password = $mysqli->real_escape_string($_POST['pass']);
-    $password = hash('SHA512', $password);
+$post_id = $_GET['post_id'];
 
-    if (empty($username) || empty($password)) {
-        echo "<div class='notice'>Please enter the required credentials! </div>";
-        include "login.php";
-        exit();
-    } else {
-        $sql = "SELECT *
-                FROM users
-                WHERE username = '$username'";
-
-        $results = $mysqli->query($sql);
-        if(!$results){
-            exit($mysqli->error);
-        }
-
-        $user_id = -1;
-        while($row = $results->fetch_array(MYSQLI_ASSOC)) {
-            if ($row['username'] == $username) {
-                $user_id = $row['user_id'];
-                break;
-            };
-        };
-
-        if ($password == $row['password']) {
-            // Logged IN
-            $_SESSION['logged_in'] = true;
-            $_SESSION['user_id'] = $user_id; // get the user id from the row
-            $_SESSION['username'] = $username;
-        } else {
-            echo "<div class='notice'>Invalid login information. </div>";
-            include "login.php";
-            exit();
-        }
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -107,7 +68,7 @@ if(empty($_SESSION['logged_in'])) {
     </div> <!-- /#sidebar-wrapper -->
 
 
-    <?php include 'templates/profile_page_edit.php' ?>
+    <?php include 'templates/post_edit_page.php' ?>
     <!-- /#page-content-wrapper -->
 
 </div>
@@ -122,8 +83,6 @@ if(empty($_SESSION['logged_in'])) {
 <!-- Menu Toggle Script -->
 <script src="../js/jquery-scripts.js"></script>
 
-<!-- Google Maps -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1SW1tz6LZeuoylTvzAEnagTCF7xu4yH8"> </script>
 </body>
 
 

@@ -12,6 +12,7 @@ session_start();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/feed.css">
+    <link rel="stylesheet" href="../css/list-of-items.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,6 +25,9 @@ session_start();
 <body>
 
 <div id="wrapper">
+    <a class="btn btn-default" id="menu-toggle">
+        <span id="sidenav-icon" class="glyphicon glyphicon-menu-hamburger"></span>
+    </a>
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
@@ -48,6 +52,11 @@ session_start();
                 </a>
             </li>
             <li class="sidebar-nav-li">
+                <a href="locations.php"> <!-- 'Location' section -->
+                    <span class="glyphicon glyphicon-map-marker sidenav-icon"></span>
+                </a>
+            </li>
+            <li class="sidebar-nav-li">
                 <a href="#left-toggle" class="hide-sidebar" id="left-toggle"> <!-- 'Hide Sidenav' section -->
                     <span class="glyphicon glyphicon-hand-left sidenav-icon"></span>
                 </a>
@@ -55,7 +64,7 @@ session_start();
         </ul>
     </div> <!-- /#sidebar-wrapper -->
 
-
+    <?php include 'templates/my_posts_page.php' ?>
     <!-- /#page-content-wrapper -->
 
 </div>

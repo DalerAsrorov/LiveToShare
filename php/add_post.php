@@ -24,11 +24,11 @@ if(empty($_SESSION['logged_in'])) {
         if(!$results){
             exit($mysqli->error);
         }
-
         $user_id = -1;
         while($row = $results->fetch_array(MYSQLI_ASSOC)) {
             if ($row['username'] == $username) {
                 $user_id = $row['user_id'];
+                $profile_img = $row['profile_img'];
                 break;
             };
         };
@@ -36,6 +36,7 @@ if(empty($_SESSION['logged_in'])) {
         if ($password == $row['password']) {
             // Logged IN
             $_SESSION['logged_in'] = true;
+            $_SESSION['image'] = $profile_img;
             $_SESSION['user_id'] = $user_id; // get the user id from the row
             $_SESSION['username'] = $username;
         } else {
@@ -66,24 +67,24 @@ if(empty($_SESSION['logged_in'])) {
 <body>
 
 <div id="wrapper">
-    <!-- sidebar that shows up when the window gets wider -->
-    <a href="profile.php" class="btn btn-default" id="menu-toggle">
+
+    <a class="btn btn-default" id="menu-toggle">
         <span id="sidenav-icon" class="glyphicon glyphicon-menu-hamburger"></span>
     </a>
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-nav-li exception">
+            <li class="sidebar-nav-li">
                 <a href="profile.php" id="profile"> <!-- 'Feeds' Section -->
                     <?php echo '<img class="profile-pic" src="data:image/jpeg;base64,' . $_SESSION['image']  . '" />'; ?>
                 </a>
             </li>
-            <li class="sidebar-nav-li ">
+            <li class="sidebar-nav-li">
                 <a href="feed.php" id="feed"> <!-- 'Feeds' Section -->
                     <span class="glyphicon glyphicon-globe sidenav-icon"></span>
                 </a>
             </li>
-            <li class="sidebar-nav-li">
+            <li class="sidebar-brand">
                 <a href="list_of_items.php" id="feed"> <!-- 'Your Posts' Section -->
                     <span class="glyphicon glyphicon-align-justify sidenav-icon"></span>
                 </a>
@@ -94,7 +95,7 @@ if(empty($_SESSION['logged_in'])) {
                 </a>
             </li>
             <li class="sidebar-nav-li">
-                <a href="locations.php"  id="left-toggle"> <!-- 'Location' section -->
+                <a href="locations.php"> <!-- 'Location' section -->
                     <span class="glyphicon glyphicon-map-marker sidenav-icon"></span>
                 </a>
             </li>
@@ -107,7 +108,7 @@ if(empty($_SESSION['logged_in'])) {
     </div> <!-- /#sidebar-wrapper -->
 
 
-    <?php include 'templates/profile_page_edit.php' ?>
+    <?php include 'templates/add_page.php' ?>
     <!-- /#page-content-wrapper -->
 
 </div>
