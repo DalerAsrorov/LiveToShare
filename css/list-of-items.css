@@ -19,3 +19,11 @@
     text-align: center;
     margin-top: 20px;
 }
+
+.link.link-category {
+    color: blue;
+}
+
+.link.link-tag {
+    color: indianred;
+}

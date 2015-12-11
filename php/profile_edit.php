@@ -54,7 +54,8 @@ if(empty($_SESSION['logged_in'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/feed.css">
-
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -103,6 +104,11 @@ if(empty($_SESSION['logged_in'])) {
                     <span class="glyphicon glyphicon-hand-left sidenav-icon"></span>
                 </a>
             </li>
+            <li class="sidebar-nav-li">
+                <a href="tutorial.php" >
+                    <span class="glyphicon glyphicon-question-sign sidenav-icon"></span>
+                </a>
+            </li>
         </ul>
     </div> <!-- /#sidebar-wrapper -->
 
@@ -113,8 +119,7 @@ if(empty($_SESSION['logged_in'])) {
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
 
 <!-- Bootstrap Core JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

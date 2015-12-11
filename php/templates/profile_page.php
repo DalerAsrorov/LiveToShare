@@ -31,6 +31,7 @@ $row = $results->fetch_array(MYSQLI_ASSOC);
                 <div class="profile-wrapper">
                    <form method="POST" action="profile_edit.php" enctype="multipart/form-data">
                         <input type="submit" class="btn btn-info profile-edit-button" value="Edit" />
+                        <a class="btn btn-warning password-change" href="password_edit.php"> Change Password </a>
                         <div class="image-wrapper profile-image-wrapper">
                             <?php echo '<img class="profile-picture"' . 'src="data:image/jpeg;base64,' .  $row['profile_img']  . '" />'; ?>
                         </div>

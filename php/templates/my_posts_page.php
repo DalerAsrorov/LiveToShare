@@ -14,9 +14,11 @@ $user_id = $_SESSION['user_id'];
 
 // 2. Generate & Submit SQL.
 $sql = "SELECT *
-        FROM users, posts
+        FROM users, posts, tags, categories
         WHERE users.user_id = $user_id
-          AND   posts.user_id = users.user_id";
+          AND posts.user_id = users.user_id
+          AND posts.category_id = categories.category_id
+          AND posts.tag_id = tags.tag_id";
 
 $results = $mysqli->query($sql);
 if(!$results){
@@ -68,9 +70,9 @@ if(!$results){
                         echo "</div>";
 
                         echo "<div class='panel-footer clearfix post-footer'>";
-                        echo "<div class='pull-right'>";
-                        echo "<a href=" . $row['category_id'] . " class='link link-category'>" . "Category: " . $row['category'] . "</a>";
-                        echo "<a href=" . $row['tag_id'] . " class='link link-tag'>" . " Mood: " . $row['tag'] . "</a>";
+                        echo "<div class='pull-right' >";
+                        echo "<a class='link link-category posts-page-cat' href=" . "'list_of_categories.php?category_id=" . $row['category_id'] . "'>" . "Category:" . $row['category'] . "</a>";
+                        echo "<a class='link link-tag pull-right' href=" . "'list_of_tags.php?tag_id=" . $row['tag_id'] . "'>" . "Mood:" . $row['tag'] . "</a>";
                         echo "</div>";
                         echo "</div>";
                         echo "</div>";

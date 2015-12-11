@@ -1,15 +1,10 @@
 <?php
-    require_once "db_connect.php";
 
-    session_start();
+require_once "db_connect.php";
 
-    $username = $_GET['username'];
-    if(empty($username)){
-        header("Location: feed.php");
-    }
+session_start();
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -43,7 +38,7 @@
                     <?php echo '<img class="profile-pic" src="data:image/jpeg;base64,' . $_SESSION['image']  . '" />'; ?>
                 </a>
             </li>
-            <li class="sidebar-brand">
+            <li class="sidebar-nav-li">
                 <a href="feed.php" id="feed"> <!-- 'Feeds' Section -->
                     <span class="glyphicon glyphicon-globe sidenav-icon"></span>
                 </a>
@@ -68,7 +63,7 @@
                     <span class="glyphicon glyphicon-hand-left sidenav-icon"></span>
                 </a>
             </li>
-            <li class="sidebar-nav-li">
+            <li class="sidebar-brand">
                 <a href="tutorial.php" >
                     <span class="glyphicon glyphicon-question-sign sidenav-icon"></span>
                 </a>
@@ -77,7 +72,7 @@
     </div> <!-- /#sidebar-wrapper -->
 
 
-    <?php include 'templates/profile_guest.php' ?>
+    <?php include 'templates/tutorial_page.php' ?>
     <!-- /#page-content-wrapper -->
 
 </div>
@@ -92,7 +87,12 @@
 <!-- Menu Toggle Script -->
 <script src="../js/jquery-scripts.js"></script>
 
+<!-- Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1SW1tz6LZeuoylTvzAEnagTCF7xu4yH8"> </script>
 </body>
 
 
 </html>
+
+
+

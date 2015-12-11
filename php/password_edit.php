@@ -1,26 +1,18 @@
 <?php
-    require_once "db_connect.php";
+/**
+ * Created by PhpStorm.
+ * User: daler
+ * Date: 11/11/15
+ * Time: 9:45 PM
+ */
 
-    session_start();
+require_once "db_connect.php";
 
-    $sql = "SELECT *
-        FROM posts";
-
-    $results = $mysqli->query($sql);
-
-    if(!$results){
-        exit($mysqli->error);
-    }
-
-    $array = [];
-
-    while($row = $results->fetch_array(MYSQLI_ASSOC)) {
-       $array[] = json_encode($row);
-    };
-
-
+session_start();
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -49,9 +41,9 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-nav-li">
+            <li class="sidebar-brand">
                 <a href="profile.php" id="profile"> <!-- 'Feeds' Section -->
-                    <?php echo '<img class="profile-pic" src="data:image/jpeg;base64,' . $_SESSION['image']  . '" />'; ?>
+                    <?php echo '<img class="profile-pic pass" src="data:image/jpeg;base64,' . $_SESSION['image']  . '" />'; ?>
                 </a>
             </li>
             <li class="sidebar-nav-li">
@@ -69,7 +61,7 @@
                     <span class="glyphicon glyphicon-off sidenav-icon"></span>
                 </a>
             </li>
-            <li class="sidebar-brand">
+            <li class="sidebar-nav-li">
                 <a href="locations.php"> <!-- 'Location' section -->
                     <span class="glyphicon glyphicon-map-marker sidenav-icon"></span>
                 </a>
@@ -79,8 +71,8 @@
                     <span class="glyphicon glyphicon-hand-left sidenav-icon"></span>
                 </a>
             </li>
-            <li class="sidebar-nav-li">
-                <a href="tutorial.php" >
+            <li class=""sidebar-nav-li">
+                <a href="tutorial.php" class="hide-sidebar" >
                     <span class="glyphicon glyphicon-question-sign sidenav-icon"></span>
                 </a>
             </li>
@@ -88,26 +80,45 @@
     </div> <!-- /#sidebar-wrapper -->
 
 
-    <div id="page-content-wrapper" style="margin-left: -50px;">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1> Popular Locations! </h1>
-                    <p class="loc-desc">
-                        Bellow is the map showing the most popular locations that people indicated in their posts. It kind of shows
-                        you where people usually spend time at or where they have been while writing their new post. Just the idea of having
-                        people from all over the world sharing their thoughts and events is amazing, so the map will give you a better understanding
-                        of where people usually hang out!
-                    </p>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-7 feeds-wrapper">
+                        <div class="profile-wrapper">
+                            <div class="col-lg-12"> <h1>Change of Password Request </h1> </div>
+                            <form  role="form" method="post" action="password_update.php" enctype="multipart/form-data">
+                                <div class="info">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                        <tr>
+                                            <td class="profile-value">New Password: </td>
+                                            <td class="profile-v">
+                                                <input type="password" name="pass" placeholder="Enter Password" class="form-control">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="profile-value">Repeat New Password: </td>
+                                            <td>
+                                                <input type="password" name="passTwo" placeholder="Enter Password Again" class="form-control">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                       </table>
+                                        <br>
+                                        <div class="form-group input-style " style="width: 100%;">
+                                            <input class="btn btn-info" type="submit" style="width: 100%; font-size: 20px;" />
+                                        </div>
+                                        <div class="form-group input-style " style="width: 100%;">
+                                            <a href="profile.php" class="btn btn-danger" type="cancel" style="width: 100%; font-size: 20px;">Cancel</a>
+                                        </div>
+                                     </div>
+                                </form>
+                            </div>
+                       </div>
+                  </div>
                 </div>
-                <div class="col-lg-12 feeds-wrapper">
-                    <div id="map-canvas"> </div>
-                </div>
-            </div>
-         </div>
+           </div>
         </div>
-    </div>
-
 </div>
 <!-- /#wrapper -->
 
@@ -126,48 +137,3 @@
 
 
 </html>
-
-
-
-
-<script>
-    var jArray= <?php echo json_encode($array ); ?>;
-
-    var newArray = new Array();
-
-    for(var i=0;i < jArray.length;i++) {
-       var object = JSON.parse(jArray[i]);
-        newArray.push(object);
-    }
-    console.log(newArray);
-
-    // Create a map object and specify the DOM element for display.
-    var map = new google.maps.Map(document.getElementById('map-canvas'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-    });
-
-    var plotPoints = function(obj) {
-        console.log(obj);
-        var myLatlng = new google.maps.LatLng(parseFloat(obj.geo_lat), parseFloat(obj.geo_long));
-
-        //created the new marker with animation and custom icon
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            animation: google.maps.Animation.DROP
-        });
-
-        map.setCenter(new google.maps.LatLng(parseFloat(obj.geo_lat),  parseFloat(obj.geo_long)));
-    };
-
-    newArray.forEach(function(object) {
-        plotPoints(object);
-    });
-
-    map.setZoom(3);
-
-
-</script>
-
-

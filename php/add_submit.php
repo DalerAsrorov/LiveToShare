@@ -12,6 +12,7 @@
     $tag_id = $_POST['tag_id'];
     $category_id = $_POST['category_id'];
     $video_link = $_POST['video_link'];
+    $username = $_SESSION['username'];
 
     if (empty($description) || empty($city) || empty($tag_id) || empty($category_id)) {
         echo "<div class='notice signup post'>Some info is missing. </div>";
@@ -46,8 +47,8 @@
 
 
             // 2. Generate & Submit SQL.
-            $sql = "INSERT INTO posts (post_img, description, geo_lat, geo_long, category_id, video_link, date, tag_id, user_id, likes, title)
-                          VALUES ('$image', '$description', $lat, $long, $category_id, '$video_link', '$date', $tag_id, $user_id, 0, '$title');";
+            $sql = "INSERT INTO posts (post_img, description, geo_lat, geo_long, category_id, video_link, date, tag_id, user_id, title)
+                          VALUES ('$image', '$description', $lat, $long, $category_id, '$video_link', '$date', $tag_id, $user_id, '$title');";
 
             $results = $mysqli->query($sql);
 

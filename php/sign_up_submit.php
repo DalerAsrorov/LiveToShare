@@ -3,6 +3,14 @@
 session_start();
 require_once "db_connect.php";
 
+date_default_timezone_set('America/Los_Angeles');
+$date = date('Y-m-d H:i:s');
+
+$date = new DateTime($date);
+$formattedDate =  $date->format('Y-m-d H:i:s');
+
+
+
 $username = $_POST['username'];
 $password = $mysqli->real_escape_string($_POST['pass']);
 $passwordTwo =  $mysqli->real_escape_string($_POST['passTwo']);
@@ -10,7 +18,9 @@ $email = $_POST['email'];
 $city = $_POST['city'];
 $country =  $_POST['country'];
 $state_id = $_POST['state_id'];
-$bio = $_POST['bio'];
+$bio =  $mysqli->real_escape_string($_POST['bio']);
+
+$notHashed = $_POST['pass']; // not hashed password for email
 
 
 if(!file_exists($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name'])) {
@@ -65,16 +75,31 @@ if (empty($username) || empty($password) || empty($email) || empty($city) || emp
         exit();
     } else {
         $password = hash('SHA512', $password);
-        $sql_add = "INSERT INTO users (username, password, profile_img, city, email, bio, country, state_id)
-                          VALUES ('$username', '$password', '$image' , '$city', '$email', '$bio', '$country', $state_id);";
+        $sql_add = "INSERT INTO users (username, password, profile_img, city, email, bio, country, state_id, date_registered)
+                          VALUES ('$username', '$password', '$image' , '$city', '$email', '$bio', '$country', $state_id, '$formattedDate');";
         $results_add = $mysqli->query($sql_add);
         if(!$results_add){
             exit($mysqli->error);
-        } else {
-           //everything is ok!
         }
+
+        generateEmail($email, $username, $notHashed); // sends confirmation email after signup
     }
 }
+
+function generateEmail($to, $username, $password) {
+    $to = $to;
+    $subject = "Registration confirmation.";
+    $msg = "Hey, " . $username . "! \r\n We are happy to inform you that you've been successfully added to our system!
+    \r\nYour password is " . $password . ". Feel free to contact us and ask questions! \n\n Best Regards, \n ShareToLive Administration";
+    $header = "From:administrator@sharetolive.com";
+
+    if( mail($to, $subject, $msg, $header) ){
+       // successfully sent
+    } else {
+        echo "Error: Email not sent";
+    }
+}
+
 
 ?>
 

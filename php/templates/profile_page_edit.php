@@ -44,9 +44,11 @@ if (!$results_states){
                         </div>
                         <div class="form-group input-style ">
                             <span class="btn btn-default btn-file">
-                                Change Image <input type="file" name="image" />
+                                Change Image <input type="file" class="upload-image" name="image" />
                             </span>
+                            <span id="file-name" style="color: darkred;"></span>
                         </div>
+
                         <br>
                         <div class="info">
                             <table class="table table-hover">
@@ -108,5 +110,13 @@ if (!$results_states){
     </div>
 </div>
 </div>
+
+<script type="text/javascript">
+    $(".upload-image").change(function() {
+        console.log('image');
+        var fileName = $(this).val();
+        $("#file-name").html(fileName);
+    });
+</script>
 
 

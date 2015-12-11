@@ -38,8 +38,9 @@ if(!$results_tags){
                         <div class="info">
                         <div class="form-group input-style ">
                             <span class="btn btn-default btn-file">
-                                Upload Image! <input type="file" name="image" />
+                                Upload Image! <input type="file" class="upload-image" name="image" />
                             </span>
+                            <span id="file-name" style="color: darkred;"></span>
                         </div>
                             <br><br>
                             <table class="table table-hover">
@@ -111,4 +112,12 @@ if(!$results_tags){
 
 <script>
 
+</script>
+
+<script type="text/javascript">
+    $(".upload-image").change(function() {
+        console.log('image');
+        var fileName = $(this).val();
+        $("#file-name").html(fileName);
+    });
 </script>

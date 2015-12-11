@@ -16,6 +16,9 @@ $post_id = $_GET['post_id'];
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/feed.css">
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -64,6 +67,11 @@ $post_id = $_GET['post_id'];
                     <span class="glyphicon glyphicon-hand-left sidenav-icon"></span>
                 </a>
             </li>
+            <li class="sidebar-nav-li">
+                <a href="tutorial.php" >
+                    <span class="glyphicon glyphicon-question-sign sidenav-icon"></span>
+                </a>
+            </li>
         </ul>
     </div> <!-- /#sidebar-wrapper -->
 
@@ -73,9 +81,6 @@ $post_id = $_GET['post_id'];
 
 </div>
 <!-- /#wrapper -->
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

@@ -92,17 +92,22 @@ if(empty($_SESSION['logged_in'])) {
             </li>
             <li class="sidebar-nav-li"> <!-- 'Log Out' section -->
                 <a href="logout.php">
-                    <span class="glyphicon glyphicon-off sidenav-icon"></span>
+                    <span class="glyphicon glyphicon-off sidenav-icon "></span>
                 </a>
             </li>
             <li class="sidebar-nav-li">
                 <a href="locations.php"> <!-- 'Location' section -->
-                    <span class="glyphicon glyphicon-map-marker sidenav-icon"></span>
+                    <span class="glyphicon glyphicon-map-marker sidenav-icon "></span>
                 </a>
             </li>
             <li class="sidebar-nav-li">
                 <a href="#left-toggle" class="hide-sidebar" id="left-toggle"> <!-- 'Hide Sidenav' section -->
-                    <span class="glyphicon glyphicon-hand-left sidenav-icon"></span>
+                    <span class="glyphicon glyphicon-hand-left sidenav-icon "></span>
+                </a>
+            </li>
+            <li class="sidebar-nav-li">
+                <a href="tutorial.php" >
+                    <span class="glyphicon glyphicon-question-sign sidenav-icon"></span>
                 </a>
             </li>
         </ul>

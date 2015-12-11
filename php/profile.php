@@ -103,6 +103,11 @@ if(empty($_SESSION['logged_in'])) {
                     <span class="glyphicon glyphicon-hand-left sidenav-icon"></span>
                 </a>
             </li>
+            <li class="sidebar-nav-li">
+                <a href="tutorial.php" >
+                    <span class="glyphicon glyphicon-question-sign sidenav-icon"></span>
+                </a>
+            </li>
         </ul>
     </div> <!-- /#sidebar-wrapper -->
 

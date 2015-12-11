@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/feed.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 
 <body>
@@ -76,8 +77,10 @@
                 </div>
                 <div class="form-group input-style ">
                     <span class="btn btn-default btn-file">
-                        Upload Profile Image <input type="file" name="image" />
+                        Upload Profile Image <input type="file" class="upload-image" name="image" />
+                        <br>
                     </span>
+                    <span id="file-name" style="color: darkred;"></span>
                 </div>
                 <div class="form-group buttons">
                     <input type="submit" value="Register" name="submit" class="btn btn-info"></input>
@@ -86,7 +89,15 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".upload-image").change(function() {
+        console.log('image');
+        var fileName = $(this).val();
+        $("#file-name").html(fileName);
+    });
+</script>
+
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 

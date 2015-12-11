@@ -1,15 +1,17 @@
 <?php
-    require_once "db_connect.php";
+/**
+ * Created by PhpStorm.
+ * User: daler
+ * Date: 12/10/15
+ * Time: 6:19 AM
+ */
 
-    session_start();
+require_once "db_connect.php";
 
-    $username = $_GET['username'];
-    if(empty($username)){
-        header("Location: feed.php");
-    }
+session_start();
+
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -31,19 +33,19 @@
 <body>
 
 <div id="wrapper">
-
-    <a class="btn btn-default" id="menu-toggle">
+    <!-- sidebar that shows up when the window gets wider -->
+    <a href="profile.php" class="btn btn-default" id="menu-toggle">
         <span id="sidenav-icon" class="glyphicon glyphicon-menu-hamburger"></span>
     </a>
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-nav-li">
+            <li class="sidebar-nav-li exception">
                 <a href="profile.php" id="profile"> <!-- 'Feeds' Section -->
                     <?php echo '<img class="profile-pic" src="data:image/jpeg;base64,' . $_SESSION['image']  . '" />'; ?>
                 </a>
             </li>
-            <li class="sidebar-brand">
+            <li class="sidebar-nav-li ">
                 <a href="feed.php" id="feed"> <!-- 'Feeds' Section -->
                     <span class="glyphicon glyphicon-globe sidenav-icon"></span>
                 </a>
@@ -59,7 +61,7 @@
                 </a>
             </li>
             <li class="sidebar-nav-li">
-                <a href="locations.php"> <!-- 'Location' section -->
+                <a href="locations.php"  id="left-toggle"> <!-- 'Location' section -->
                     <span class="glyphicon glyphicon-map-marker sidenav-icon"></span>
                 </a>
             </li>
@@ -77,7 +79,7 @@
     </div> <!-- /#sidebar-wrapper -->
 
 
-    <?php include 'templates/profile_guest.php' ?>
+    <?php include 'templates/category_page.php' ?>
     <!-- /#page-content-wrapper -->
 
 </div>
@@ -96,3 +98,4 @@
 
 
 </html>
+

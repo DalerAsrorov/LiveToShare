@@ -245,18 +245,15 @@ label.signup {
 }
 
 .profile-pic {
-    /* width: 90px; */
     height: 60px;
+    width: 50%;
     border-radius: 50%;
-    /* margin: 0 auto; */
     float: none;
-    /* display: block; */
-    /* margin: 0; */
-    /* margin: 0; */
     float: none;
     display: block;
     margin: 0 auto;
-    margin-right: 10px;
+    margin-right: 19px;
+
 }
 
 .image-wrapper.profile-image-wrapper {
@@ -294,3 +291,37 @@ label.signup {
     padding: 0;
 }
 
+.btn.password-change {
+    font-size: 21px;
+    position: relative;
+    top: 50px;
+}
+
+.youtube-video embed {
+    width: 100%;
+}
+
+.profile-pic.pass {
+    margin-right: 25px;
+}
+
+.tutorial-profile {
+    width: 50px;
+    height: 50px;
+    margin: 0;
+}
+
+.glyphicon.tutorial-icon {
+    font-size: 50px;
+    color: rgba(234, 193, 67, 1.0);
+}
+
+.tutorial-p {
+    text-align: left;
+}
+
+.tutorial-info {
+    color: #D01A1A;
+    font-weight: 800;
+    font-size: 28px;
+}

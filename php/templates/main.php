@@ -51,7 +51,7 @@ if(!$results){
 
                                             $width = '235';
                                             $height = '200';
-                                            echo '<object width="' . $width . '" height="' . $height . '"><param name="movie" value="http://www.youtube.com/v/' . $id . '&amp;hl=en_US&amp;fs=1?rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/' . $id . '&amp;hl=en_US&amp;fs=1?rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="' . $width . '" height="' . $height . '"></embed></object>';
+                                            echo '<object class="youtube-video" width="' . $width . '" height="' . $height . '"><param name="movie" value="http://www.youtube.com/v/' . $id . '&amp;hl=en_US&amp;fs=1?rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/' . $id . '&amp;hl=en_US&amp;fs=1?rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="' . $width . '" height="' . $height . '"></embed></object>';
 
                                         echo "</div>";
                                     echo "</div>";
@@ -59,9 +59,9 @@ if(!$results){
                                 echo "</div>";
 
                                 echo "<div class='panel-footer clearfix post-footer'>";
-                                    echo "<div class='pull-right'>";
-                                       echo "<a href=" . $row['category_id'] . " class='link link-category'>" . "Category: " . $row['category'] . "</a>";
-                                       echo "<a href=" . $row['tag_id'] . " class='link link-tag'>" . " Mood: " . $row['tag'] . "</a>";
+                                    echo "<div style='text-align: center;'>";
+                                        echo "<a class='link link-category ' href=" . "'list_of_categories.php?category_id=" . $row['category_id'] . "'>" . "Category:" . $row['category'] . "</a>";
+                                        echo "<a class='link link-tag pull-right' href=" . "'list_of_tags.php?tag_id=" . $row['tag_id'] . "'>" . "Mood:" . $row['tag'] . "</a>";
                                     echo "</div>";
                                 echo "</div>";
                             echo "</div>";

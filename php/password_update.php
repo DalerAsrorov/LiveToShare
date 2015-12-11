@@ -1,14 +1,69 @@
 <?php
-    require_once "db_connect.php";
+/**
+ * Created by PhpStorm.
+ * User: daler
+ * Date: 11/11/15
+ * Time: 9:45 PM
+ */
 
-    session_start();
+require_once "db_connect.php";
 
-    $username = $_GET['username'];
-    if(empty($username)){
-        header("Location: feed.php");
+session_start();
+
+$password = $mysqli->real_escape_string($_POST['pass']);
+$passwordTwo = $mysqli->real_escape_string($_POST['passTwo']);
+$user_id = $_SESSION['user_id'];
+
+$notHashed = $_POST['pass']; // not hashed password for email
+
+
+if(empty($password) || empty($passwordTwo)) {
+    echo "<div class='notice signup'>Some info is missing. </div>";
+    include "password_edit.php"; //post_edit.php?post_id=12
+    exit();
+} else if ($password != $passwordTwo) {
+    echo "<div class='notice signup'>The passwords do not match. </div>";
+    include "password_edit.php"; //post_edit.php?post_id=12
+    exit();
+} else {
+    $password = hash('SHA512', $password);
+
+    $sql = "UPDATE users
+               SET password = '$password'
+             WHERE users.user_id = $user_id";
+    $results = $mysqli->query($sql);
+
+    $rowForEmail = $results->fetch_array(MYSQLI_ASSOC);
+
+    if (!$results) {
+        exit($mysqli->error . " Could not change the password. ");
+
     }
 
+    generateEmail($rowForEmail['email'], $rowForEmail['username'], $notHashed);
+
+
+    $username = $_SESSION['username'];
+    $user_id = $_SESSION['user_id'];
+    session_destroy();
+}
+
+function generateEmail($to, $username, $password) {
+    $to = $to;
+    $subject = "Registration confirmation.";
+    $msg = "Hey, " . $username . "! \r\n Your new password is " . $password . "
+    \r\nYour password is " . $password . ". Feel free to contact us and ask questions! \n\n Best Regards, \n ShareToLive Administration";
+    $header = "From:administrator@sharetolive.com";
+
+    if( mail($to, $subject, $msg, $header) ){
+        // successfully sent
+    } else {
+        echo "Error: Email not sent";
+    }
+}
+
 ?>
+
 
 
 <!DOCTYPE html>
@@ -38,12 +93,12 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="sidebar-nav-li">
+            <li class="sidebar-brand">
                 <a href="profile.php" id="profile"> <!-- 'Feeds' Section -->
-                    <?php echo '<img class="profile-pic" src="data:image/jpeg;base64,' . $_SESSION['image']  . '" />'; ?>
+                    <?php echo '<img class="profile-pic pass" src="data:image/jpeg;base64,' . $_SESSION['image']  . '" />'; ?>
                 </a>
             </li>
-            <li class="sidebar-brand">
+            <li class="sidebar-nav-li">
                 <a href="feed.php" id="feed"> <!-- 'Feeds' Section -->
                     <span class="glyphicon glyphicon-globe sidenav-icon"></span>
                 </a>
@@ -77,9 +132,15 @@
     </div> <!-- /#sidebar-wrapper -->
 
 
-    <?php include 'templates/profile_guest.php' ?>
-    <!-- /#page-content-wrapper -->
+    <div class="container">
+        <div class="row" style="margin-top: 200px; color: lightblue; text-align: center;">
+            <h1 style="color: lightblue">Your password has been changed! </h1>
+            <h2 style="color: lightblue"> Go back to <a href="login.php">Login</a> page to enter the app with the new password! </h2>
+        </div>
+    </div>
 
+
+</div>
 </div>
 <!-- /#wrapper -->
 
@@ -92,6 +153,8 @@
 <!-- Menu Toggle Script -->
 <script src="../js/jquery-scripts.js"></script>
 
+<!-- Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1SW1tz6LZeuoylTvzAEnagTCF7xu4yH8"> </script>
 </body>
 
 
